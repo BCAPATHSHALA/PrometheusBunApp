@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import { requestCounter } from "./requestCount";
-import { activeRequestsGauge } from "./activeRequests";
-import { httpRequestDurationMicroseconds } from "./requestMeasure";
+import { requestCounter } from "./countMatric";
+import { activeRequestsGauge } from "./gaugeMatric";
+import { httpRequestDurationMicroseconds } from "./histogramMatric";
 
 export const metricsMiddleware = (
   req: Request,
