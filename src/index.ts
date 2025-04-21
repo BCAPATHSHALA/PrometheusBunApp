@@ -1,13 +1,15 @@
 import express from "express";
 // import { middleware } from "./middleware";
-import { requestCountMiddleware } from "./matrices/requestCount";
+// import { requestCountMiddleware } from "./matrices/requestCount";
 import client from "prom-client";
+import { metricsMiddleware } from "./matrices";
 
 const app = express();
 const PORT = 3000;
 
 // app.use(middleware);
-app.use(requestCountMiddleware);
+// app.use(requestCountMiddleware);
+app.use(metricsMiddleware);
 
 app.get("/", (req, res) => {
   res.send("Hello from Bun + Express!");
