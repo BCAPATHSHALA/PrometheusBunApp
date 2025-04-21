@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { requestCounter } from "./requestCount";
+import { activeRequestsGauge } from "./activeRequests";
 
 export const metricsMiddleware = (
   req: Request,
@@ -7,6 +8,9 @@ export const metricsMiddleware = (
   next: NextFunction
 ) => {
   const startTime = Date.now();
+
+  // Increment active requests gauge
+  activeRequestsGauge.inc();
 
   res.on("finish", function () {
     const endTime = Date.now();

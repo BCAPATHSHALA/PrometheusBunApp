@@ -15,7 +15,8 @@ app.get("/", (req, res) => {
   res.send("Hello from Bun + Express!");
 });
 
-app.get("/user", (req, res) => {
+app.get("/user", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   res.send({
     name: "Manoj Kumar",
     age: 25,
