@@ -1,7 +1,9 @@
 global:
-  scrape_interval: 15s # How frequently to scrape targets
+  scrape_interval: 5s # Prometheus will scrape all targets every 5 seconds
 
 scrape_configs:
-  - job_name: 'nodejs-app'
+  - job_name: "my-bun-app-metrics" # just a label for grouping and identifying the metrics source
     static_configs:
-      - targets: ['localhost:3000']
+      - targets: ["my-bun-app:3000"] # Prometheus will fetch metrics from this target & Note: "my-bun-app" is the name of the service as hostname in docker-compose.yml, and "3000" is the port where your Bun app exposes metrics
+
+# What is targets in prometheus.yml? => The targets section in prometheus.yml tells Prometheus where to scrape the metrics from. In this case, it specifies the target as "my-bun-app:3000", which is the hostname and port of the Bun app service defined in the docker-compose.yml file. Prometheus will periodically send HTTP requests to this target to collect metrics data.
