@@ -45,4 +45,45 @@ bun run start
 - `Step 7`: Access Prometheus at `http://localhost:9090`
 - `Step 8`: Access your application at `http://localhost:3000`
 
-## Docker Deployment with Grafana and Prometheus (Pending)
+## Docker Deployment with Grafana and Prometheus
+
+- `Step 1`: Installing grafana in docker compose `Update docker-compose`
+
+```yml
+version: "3.8"
+
+services:
+  my-bun-app:
+    build: ./
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./:/etc/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    networks:
+      - monitoring
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+networks:
+  monitoring:
+```
+
+- `Step 2`: Access Grafana at `http://localhost:3001`
+- `Step 3`: Adding Prometheus as a source in Grafana `Update grafana`
+- `Step 4`: Grafana provides you with a way to set alerts on metrics and notifications
+
+For more information, please refer to the [Grafana documentation](https://grafana.com/docs/grafana/latest/) and [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/).
